@@ -1,0 +1,55 @@
+{
+  "name": "sap-cap-fiori-crud",
+  "version": "1.0.0",
+  "description": "Full CRUD app with SAP CAP and Fiori Elements",
+  "repository": "https://github.com/Ger678/sap-cap-fiori-crud",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^7",
+    "@sap/cds-dk": "^7",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-fiori": "^1",
+    "jest": "^29"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch",
+    "test": "jest --silent",
+    "build": "cds build --production",
+    "deploy:cf": "cf push"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": ":memory:"
+        }
+      },
+      "[production]": {
+        "db": {
+          "kind": "hana",
+          "deploy-format": "hdbtable"
+        },
+        "auth": {
+          "kind": "xsuaa"
+        }
+      }
+    },
+    "fiori": {
+      "preview": true,
+      "lean_draft": true
+    },
+    "log": {
+      "service": true
+    }
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testPathPattern": "test/"
+  }
+}
